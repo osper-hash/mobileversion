@@ -75,7 +75,7 @@
 <body>
   <div>
     <p class="welcome-text">Welcome to the Finals Sousou, you have made it!</p>
-    <video id="intro-video" autoplay muted playsinline>
+    <video id="intro-video" autoplay playsinline controls>
       <source src="finals.mp4" type="video/mp4">
       Your browser does not support the video element.
     </video>
@@ -89,7 +89,7 @@
   </div>
 
   <!-- Video that plays after correct answer -->
-  <video id="repeat-video" muted playsinline>
+  <video id="repeat-video" playsinline>
     <source src="jumpscare.mp4" type="video/mp4">
     Your browser does not support the video element.
   </video>
@@ -98,6 +98,10 @@
     const introVideo = document.getElementById("intro-video");
     const questionSection = document.getElementById("question-section");
     const repeatVideo = document.getElementById("repeat-video");
+
+    // Ensure videos start with proper settings
+    introVideo.muted = false; // Unmute the first video
+    introVideo.volume = 1.0;  // Set volume to maximum
 
     // Show the question section after the intro video ends
     introVideo.onended = () => {
@@ -111,6 +115,8 @@
       if (userInput === correctAnswer) {
         questionSection.style.display = "none"; // Hide the question section
         repeatVideo.style.display = "block"; // Show the repeat video
+        repeatVideo.muted = false; // Ensure the second video is not muted
+        repeatVideo.volume = 1.0; // Set volume to maximum
         repeatVideo.play();
 
         // Make the video loop 4 times

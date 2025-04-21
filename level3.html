@@ -100,12 +100,15 @@
 
     function checkAnswer() {
       const correctSentence = "Hi Sousou You are my favorite person on earth";
-      const userInput = document.getElementById("final-answer").value;
+      const userInput = document.getElementById("final-answer").value.trim().toLowerCase();
       const messageElement = document.getElementById("message");
 
-      if (userInput.trim().toLowerCase() === correctSentence.toLowerCase()) {
+      if (userInput === correctSentence.toLowerCase()) {
         messageElement.textContent = "Correct! Well done.";
         messageElement.style.color = "green";
+        setTimeout(() => {
+          window.location.href = "level4.html"; // Redirects to Level 4 page
+        }, 2000); // Redirect after a short delay
       } else {
         messageElement.textContent = "Incorrect, try again!";
         messageElement.style.color = "red";

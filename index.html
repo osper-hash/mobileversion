@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I Want to Play a Game</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .play-button, .start-game-button {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: red;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px red;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    .play-button {
+      display: block;
+    }
+
+    .start-game-button {
+      display: none;
+    }
+
+    .play-button:hover, .start-game-button:hover {
+      background-color: darkred;
+    }
+
+    .typing-text {
+      max-width: 800px;
+      font-size: 1.6em;
+      text-shadow: 2px 2px 5px red;
+      white-space: pre-wrap;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <button class="play-button" onclick="playIntro()">Play</button>
+    <div class="typing-text" id="typing-text"></div>
+    <button class="start-game-button" id="start-game-button" onclick="startGame()">Let's Begin the Game</button>
+  </div>
+
+  <audio id="intro-audio">
+    <source src="jigsaw-intro.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const message = `Hi Sousou, I want to play a game with you.
+I'm not sure how it's going to go...
+But I hope you enjoy it.
+
+The game will be challenging,
+so let's see how smart you really are.
+
+I will be giving you challenges.
+You must complete each level to move to the next.
+
+By the end of it... you’ll get a little surprise.`;
+
+    let textFinished = false;
+    let audioFinished = false;
+
+    function playIntro() {
+      const audio = document.getElementById("intro-audio");
+      const playButton = document.querySelector(".play-button");
+      const textElement = document.getElementById("typing-text");
+      const startGameButton = document.getElementById("start-game-button");
+
+      playButton.style.display = "none";
+      textElement.style.display = "block";
+      audio.play();
+
+      typeText(textElement, message, 40, () => {
+        textFinished = true;
+        checkCompletion();
+      });
+
+      audio.onended = () => {
+        audioFinished = true;
+        checkCompletion();
+      };
+    }
+
+    function typeText(element, text, speed, callback) {
+      let index = 0;
+      function type() {
+        if (index < text.length) {
+          element.textContent += text.charAt(index);
+          index++;
+          setTimeout(type, speed);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    function checkCompletion() {
+      const startGameButton = document.getElementById("start-game-button");
+      if (textFinished && audioFinished) {
+        startGameButton.style.display = "block";
+      }
+    }
+
+    function startGame() {
+      window.location.href = "level1.html"; // Redirects to level 1
+    }
+  </script>
+</body>
+</html>

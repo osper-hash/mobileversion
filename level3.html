@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 3 Challenge</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .play-button, .submit-button {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: red;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px red;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    .play-button:hover, .submit-button:hover {
+      background-color: darkred;
+    }
+
+    .challenge-text {
+      font-size: 1.6em;
+      text-shadow: 2px 2px 5px red;
+      margin-top: 20px;
+    }
+
+    .input-box {
+      margin-top: 20px;
+      font-size: 1.2em;
+      padding: 10px;
+      border: 2px solid red;
+      border-radius: 5px;
+      background: black;
+      color: white;
+      text-align: center;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 1.4em;
+      color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <button class="play-button" onclick="playAudio()">Play</button>
+    <p class="challenge-text">
+      Welcome to Level 3.<br>
+      What is the secret word? Who from your friends would know it?<br>
+      Using that word, translate the Greek words below:<br>
+      **"Είσαι το αγαπημένο μου πρόσωπο στη γη"**.<br>
+      Write the full sentence in English including the secret word.<br>
+      I may be able to help if needed, hehehehehe.
+    </p>
+    <input type="text" class="input-box" id="final-answer" placeholder="Enter full sentence here">
+    <button class="submit-button" onclick="checkAnswer()">Submit</button>
+    <p class="message" id="message"></p>
+  </div>
+
+  <audio id="level3-audio">
+    <source src="sousou.wav" type="audio/wav">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function playAudio() {
+      document.getElementById("level3-audio").play();
+    }
+
+    function checkAnswer() {
+      const correctSentence = "Hi Sousou You are my favorite person on earth";
+      const userInput = document.getElementById("final-answer").value;
+      const messageElement = document.getElementById("message");
+
+      if (userInput.trim().toLowerCase() === correctSentence.toLowerCase()) {
+        messageElement.textContent = "Correct! Well done.";
+        messageElement.style.color = "green";
+      } else {
+        messageElement.textContent = "Incorrect, try again!";
+        messageElement.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>

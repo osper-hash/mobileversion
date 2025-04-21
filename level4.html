@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 4</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .welcome-text {
+      font-size: 2em;
+      text-shadow: 2px 2px 5px red;
+      margin-bottom: 30px;
+    }
+
+    .riddle-text {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+
+    .answer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .text-input {
+      padding: 10px;
+      font-size: 1.2em;
+      border: 2px solid red;
+      border-radius: 5px;
+      background: black;
+      color: white;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .play-button, .submit-button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background-color: red;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px red;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    .play-button:hover, .submit-button:hover {
+      background-color: darkred;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 1.4em;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <p class="welcome-text">Welcome to Level 4, so far so good Sousou, you're about to win!</p>
+    <p class="riddle-text">"I walk unseen but always near. I steal your breath and feed on fear. No one escapes, none can defend—I am the fate that waits at the end. Who am I?"</p>
+    <button class="play-button" onclick="playIntro()">Play</button>
+    <div class="answer-section" id="answer-section" style="display: none;">
+      <input type="text" class="text-input" id="answer-input" placeholder="Type your answer here">
+      <button class="submit-button" onclick="checkAnswer()">Submit</button>
+      <p class="message" id="message"></p>
+    </div>
+  </div>
+
+  <audio id="intro-audio">
+    <source src="level4_intro.wav" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <audio id="background-audio">
+    <source src="background_audio.wav" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function playIntro() {
+      const playButton = document.querySelector(".play-button");
+      const introAudio = document.getElementById("intro-audio");
+      const backgroundAudio = document.getElementById("background-audio");
+      const answerSection = document.getElementById("answer-section");
+
+      playButton.style.display = "none"; // Hide the Play button
+      introAudio.play();
+
+      introAudio.onended = () => {
+        backgroundAudio.play(); // Play background audio after intro finishes
+        answerSection.style.display = "flex"; // Show the answer section
+      };
+    }
+
+    function checkAnswer() {
+      const userInput = document.getElementById("answer-input").value.toLowerCase().trim();
+      const correctAnswer = "death";
+      const message = document.getElementById("message");
+
+      if (userInput === correctAnswer) {
+        message.textContent = "Correct! Get ready for the next level...";
+        message.style.color = "green";
+        setTimeout(() => {
+          window.location.href = "level5.html"; // Redirects to Level 5
+        }, 2000);
+      } else {
+        message.textContent = "Incorrect! Try again.";
+        message.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>

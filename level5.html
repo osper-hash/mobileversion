@@ -2,28 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Level 5</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
       font-family: 'Courier New', Courier, monospace;
       background: black;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      overflow-y: auto; /* Enables vertical scrolling */
+      overflow-x: hidden; /* Prevents horizontal scrolling */
     }
 
     .welcome-text {
       font-size: 2em;
-      margin-bottom: 20px;
+      margin: 20px auto; /* Centers text vertically */
       text-shadow: 2px 2px 5px red;
+      text-align: center;
     }
 
     .question-section {
@@ -75,7 +72,7 @@
 <body>
   <div>
     <p class="welcome-text">Welcome to the Finals Sousou, you have made it!</p>
-    <video id="intro-video" autoplay playsinline controls>
+    <video id="intro-video" autoplay playsinline>
       <source src="finals.mp4" type="video/mp4">
       Your browser does not support the video element.
     </video>
@@ -102,6 +99,9 @@
     // Ensure videos start with proper settings
     introVideo.muted = false; // Unmute the first video
     introVideo.volume = 1.0;  // Set volume to maximum
+
+    // Enable scrolling when page loads
+    document.body.style.overflow = "auto";
 
     // Show the question section after the intro video ends
     introVideo.onended = () => {

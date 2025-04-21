@@ -2,25 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Level 5</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
       font-family: 'Courier New', Courier, monospace;
       background: black;
       color: white;
-      overflow-y: auto; /* Enables vertical scrolling */
-      overflow-x: hidden; /* Prevents horizontal scrolling */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .welcome-text {
       font-size: 2em;
-      margin: 20px auto; /* Centers text vertically */
+      margin-bottom: 20px;
       text-shadow: 2px 2px 5px red;
-      text-align: center;
     }
 
     .question-section {
@@ -58,6 +61,12 @@
       background-color: darkred;
     }
 
+    #intro-video {
+      width: 60%; /* Adjusts width to 60% of the screen */
+      height: auto; /* Maintains aspect ratio */
+      margin-bottom: 20px; /* Adds spacing below the video */
+    }
+
     #repeat-video {
       position: absolute;
       top: 0;
@@ -72,7 +81,7 @@
 <body>
   <div>
     <p class="welcome-text">Welcome to the Finals Sousou, you have made it!</p>
-    <video id="intro-video" autoplay playsinline>
+    <video id="intro-video" autoplay playsinline controls>
       <source src="finals.mp4" type="video/mp4">
       Your browser does not support the video element.
     </video>
@@ -100,9 +109,6 @@
     introVideo.muted = false; // Unmute the first video
     introVideo.volume = 1.0;  // Set volume to maximum
 
-    // Enable scrolling when page loads
-    document.body.style.overflow = "auto";
-
     // Show the question section after the intro video ends
     introVideo.onended = () => {
       questionSection.style.display = "flex";
@@ -114,7 +120,7 @@
 
       if (userInput === correctAnswer) {
         questionSection.style.display = "none"; // Hide the question section
-        repeatVideo.style.display = "block"; // Show the repeat video
+        repeatVideo.style.display = "block";   // Show the repeat video
         repeatVideo.muted = false; // Ensure the second video is not muted
         repeatVideo.volume = 1.0; // Set volume to maximum
         repeatVideo.play();
